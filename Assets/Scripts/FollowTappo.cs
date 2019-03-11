@@ -5,6 +5,7 @@ using UnityEngine;
 public class FollowTappo : MonoBehaviour {
 
     public Vector3 offset;
+    public Quaternion rotationOffset;
     private GameObject activeTappo=null;
     // Use this for initialization
     void Start () {
@@ -22,6 +23,7 @@ public class FollowTappo : MonoBehaviour {
         {
             // Set the position of the camera's transform to be the same as the player's, but offset by the calculated offset distance.
             transform.position = activeTappo.transform.position + offset;
+            transform.eulerAngles=new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, activeTappo.transform.eulerAngles.y);
         }
     }
 
