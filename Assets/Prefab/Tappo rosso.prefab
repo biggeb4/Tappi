@@ -128,12 +128,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 100
-  speed: 10
-  speedRotation: 1.5
-  jumpSpeed: 40
-  maxJumpSpeed: 100
+  speed: 15
+  speedRotation: 3
+  jumpSpeed: 200
+  maxJumpSpeed: 400
   canJump: 1
-  junpAngle: 45
+  canMove: 1
+  junpAngle: -45
 --- !u!114 &114815764206823396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -147,4 +148,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Weapons:
   - {fileID: 114892792606668360, guid: a64d5b497b570124c9ab6d27d031d231, type: 2}
+  - {fileID: 0}
   offsetFire: {x: 0, y: 0, z: 0}

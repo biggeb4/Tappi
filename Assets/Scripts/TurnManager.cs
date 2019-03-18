@@ -89,7 +89,7 @@ public class TurnManager : MonoBehaviour {
             if (currentTappo != null)
             {
                 SetCamera(currentTappo.tappo);
-            currentTappo.tappo.tag = "Active";
+                currentTappo.tappo.tag = "Active";
             }
             else
             {
@@ -98,8 +98,19 @@ public class TurnManager : MonoBehaviour {
         }
     }
 
+    public void Moving()
+    {
+        GetComponent<InputManager>().inputAllowed = false;
+
+        if (!moving)
+        {
+            ActivateCurrent();
+        }
+    }
+
     public void Moved(GameObject go)
     {
+        GetComponent<InputManager>().inputAllowed = true;
         if (moving)
         {
             moving = false;
@@ -109,7 +120,6 @@ public class TurnManager : MonoBehaviour {
         else
         {
             Destroy(go);
-            ActivateCurrent();
             PassTurn();
         }
     }
@@ -123,5 +133,10 @@ public class TurnManager : MonoBehaviour {
     public void ActivateCurrent()
     {
         currentTappo.tappo.SetActive(true);
+    }
+
+    public bool IsCurrentTappo(GameObject tappo)
+    {
+        return currentTappo.tappo == tappo;
     }
 }

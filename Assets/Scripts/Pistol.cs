@@ -17,7 +17,7 @@ public class Pistol : Weapon{
     public override void Fire(GameObject player)
     {
         player.GetComponent<Player>().Deactivate();
-        GameObject spawnedProjectile = Instantiate(projectile, player.transform.position+player.GetComponent<Player>().offsetFire , Quaternion.identity);
+        GameObject spawnedProjectile = Instantiate(projectile, player.transform.position+player.GetComponent<Player>().offsetFire , player.transform.rotation);
         spawnedProjectile.tag = "Active";
         TurnManager.instance.SetCamera(spawnedProjectile);
     }

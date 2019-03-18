@@ -81,22 +81,20 @@ public class InputManager : MonoBehaviour {
     {
         if (Input.acceleration.magnitude> minimunAccelerationForJump)
         {
-            Debug.Log("accel:" + Input.acceleration.magnitude);
             GameObject tappoActive = GameObject.FindGameObjectWithTag("Active");
-            tappoActive.GetComponent<TappoInputHandler>().Jump(Input.acceleration);
+            tappoActive.GetComponent<TappoInputHandler>().Jump(Input.acceleration.magnitude);
         }
     }
     private void Rotate()
     {
-        if (RotationJoystick.Horizontal != 0 || RotationJoystick.Vertical != 0)
+        if (RotationJoystick.Horizontal != 0)
         {
-            Vector3 targetDirection = new Vector3(RotationJoystick.Horizontal, 0f, RotationJoystick.Vertical);
-
-            Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
+            Vector3 targetDirection = new Vector3(0f,-RotationJoystick.Horizontal, 0f);
+            
             GameObject tappoActive = GameObject.FindGameObjectWithTag("Active");
             if (tappoActive)
             {
-                tappoActive.GetComponent<TappoInputHandler>().Rotate(targetRotation);
+                tappoActive.GetComponent<TappoInputHandler>().Rotate(targetDirection);
             }
         }
     }

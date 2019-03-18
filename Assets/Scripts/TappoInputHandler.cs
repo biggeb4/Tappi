@@ -10,35 +10,58 @@ public class TappoInputHandler : MonoBehaviour {
     public float jumpSpeed = 1;
     public float maxJumpSpeed = 200;
     public bool canJump = true;
+    public bool canMove = true;
     public float junpAngle = -45;
+
+
     public void Move(Vector3 direction,float force)
     {
-        force = force > maxSpeed ? maxSpeed : force;
-        GetComponent<Rigidbody>().AddForce(direction * force * speed);
-        StartCoroutine(Wait());
+        if (canMove)
+        {
+            force = force > maxSpeed ? maxSpeed : force;
+            GetComponent<Rigidbody>().AddForce(direction * force * speed);
+            StartCoroutine(Wait());
+        }
     }
 
     IEnumerator Wait()
     {
+        TurnManager.instance.Moving();
         while (!GetComponent<Rigidbody>().IsSleeping())
         {
             yield return null;
         }
+        if (Mathf.Abs(transform.eulerAngles.x) > 100)
+        {
+            transform.eulerAngles = new Vector3(0,transform.eulerAngles.y,transform.eulerAngles.z);
+        }
         TurnManager.instance.Moved(gameObject);
     }
 
-    public void Rotate(Quaternion targetRotation)
+    public void Rotate(Vector3 targetRotation)
     {
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, speedRotation*Time.deltaTime * 50);
+        transform.Rotate(targetRotation * speedRotation);
     }
 
-    public void Jump(Vector3 direction)
+    public void Jump(float force)
     {
-        Debug.Log("jump");
-        //direction = Quaternion.AngleAxis(junpAngle, Vector3.up) * direction;
-        float force = (direction * jumpSpeed).magnitude;
-        force = force > maxSpeed ? maxSpeed : force;
-        GetComponent<Rigidbody>().AddForce(direction * force);
-        //StartCoroutine(Wait());
+        if (canJump)
+        {
+            Vector3 direction = Camera.main.transform.up;
+            if (Mathf.Abs(transform.eulerAngles.x) > 100)
+            {
+                direction = Quaternion.AngleAxis(-junpAngle, Vector3.right) * direction;
+            }
+            else
+            {
+                direction = Quaternion.AngleAxis(junpAngle, Vector3.right) * direction;
+            }
+            Debug.Log(force);
+            force = (direction * jumpSpeed).magnitude;
+            force = force > maxJumpSpeed ? maxJumpSpeed : force;
+            Debug.Log(force);
+            GetComponent<Rigidbody>().AddForce(direction * force);
+            StartCoroutine(Wait());
+        }
     }
 }

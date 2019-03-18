@@ -26,7 +26,7 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Active")
+        if (collision.gameObject.tag == "Active" && !TurnManager.instance.IsCurrentTappo(gameObject))
         {
             Destroy(gameObject);
         }
