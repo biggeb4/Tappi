@@ -9,12 +9,11 @@ public class InputManager : MonoBehaviour {
     private Vector3 firstPressHit;
     public bool inputAllowed = true;
     public float minimunAccelerationForJump=1.5f;
-    protected Joystick RotationJoystick;
+    private GameObject activeTappo = null;
 
     // Use this for initialization
     void Start()
     {
-        RotationJoystick = GameObject.Find("RotationJoystick").GetComponent<Joystick>();
     }
 
     // Update is called once per frame
@@ -22,9 +21,11 @@ public class InputManager : MonoBehaviour {
     {
         if (inputAllowed)
         {
-            Swipe();
-            Rotate();
-            Jump();
+            activeTappo=GameObject.FindWithTag("Active");
+            if (activeTappo)
+            {
+                Swipe();
+            }
         }
     }
 
@@ -33,68 +34,84 @@ public class InputManager : MonoBehaviour {
         if (Input.touches.Length > 0)
         {
             Touch t = Input.GetTouch(0);
-            Vector2 vTouchPos = t.position;
-            if (t.phase == TouchPhase.Began)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(vTouchPos);
 
-                // Your raycast handling
-                RaycastHit vHit;
-                if (Physics.Raycast(ray.origin, ray.direction, out vHit))
-                {
-                    firstPressHit = vHit.point;
-                    //save began touch 2d point
-                    firstPressPos = vTouchPos;
-                    fire_start_time = Time.time;
-                }
+            if (t.position.x < Screen.width / 4)
+            {
+                Vector3 targetDirection = new Vector3(0f, -1.0f, 0f);
+                activeTappo.GetComponent<TappoInputHandler>().Rotate(targetDirection);
             }
-
-            if (t.phase == TouchPhase.Moved && fire_start_time > 0)
+            else
             {
-                // The ray to the touched object in the world
-                Ray ray = Camera.main.ScreenPointToRay(vTouchPos);
-
-                // Your raycast handling
-                RaycastHit vHit;
-                if (Physics.Raycast(ray.origin, ray.direction, out vHit))
+                if (t.position.x > Screen.width * 0.75f)
                 {
-                    if (vHit.transform.tag == "Active")
+                    Vector3 targetDirection = new Vector3(0f, 1.0f, 0f);
+                    activeTappo.GetComponent<TappoInputHandler>().Rotate(targetDirection);
+                }
+                else
+                {
+
+                    if (t.phase == TouchPhase.Began)
                     {
-                        float distance = Vector2.Distance(firstPressPos, vTouchPos);
+                        firstPressPos = t.position;
+                        fire_start_time = Time.time;
+                    }
+
+                    if (t.phase == TouchPhase.Moved && fire_start_time > 0)
+                    {
+                        if (t.position.x < Screen.width / 4)
+                        {
+                            Vector3 targetDirection = new Vector3(0f, 1.0f, 0f);
+                            activeTappo.GetComponent<TappoInputHandler>().Rotate(targetDirection);
+                        }
+                        else if (t.position.x > Screen.width * 3 / 4)
+                        {
+                            Vector3 targetDirection = new Vector3(0f, -1.0f, 0f);
+                            activeTappo.GetComponent<TappoInputHandler>().Rotate(targetDirection);
+                        }
+                    }
+
+                    if (t.phase == TouchPhase.Ended)
+                    {
+                        //save ended touch 2d point
+                        Vector2 secondPressPos = new Vector2(t.position.x, t.position.y);
+
+                        //create vector from the two points
+                        Vector3 currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
+
                         float swipeTime = Time.time - fire_start_time;
-                        Vector3 direction = vHit.transform.position - new Vector3(firstPressHit.x, vHit.transform.position.y, firstPressHit.z);
+                        float distance = Vector2.Distance(firstPressPos, secondPressPos);
                         float force = distance / swipeTime;
-                        vHit.transform.gameObject.GetComponent<TappoInputHandler>().Move(direction.normalized, force);
-                        
+
+                        //normalize the 2d vector
+                        currentSwipe.Normalize();
+
+                        //swipe upwards
+                        if (currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
+                        {
+                            if (distance > 1 && swipeTime > 0.2)
+                            {
+                                activeTappo.gameObject.GetComponent<TappoInputHandler>().MoveFoward(force);
+                            }
+                        }
+                        //swipe down
+                        if (currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
+                        {
+                            if (distance > 1 && swipeTime > 0.2)
+                            {
+                                activeTappo.gameObject.GetComponent<TappoInputHandler>().Jump(force);
+                            }
+                        }
+                        //swipe left
+                        if (currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
+                        {
+                        }
+                        //swipe right
+                        if (currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
+                        {
+                        }
                         fire_start_time = 0;
                     }
                 }
-            }
-
-            if (t.phase == TouchPhase.Ended)
-            {
-                fire_start_time = 0;
-            }
-        }
-    }
-    private void Jump()
-    {
-        if (Input.acceleration.magnitude> minimunAccelerationForJump)
-        {
-            GameObject tappoActive = GameObject.FindGameObjectWithTag("Active");
-            tappoActive.GetComponent<TappoInputHandler>().Jump(Input.acceleration.magnitude);
-        }
-    }
-    private void Rotate()
-    {
-        if (RotationJoystick.Horizontal != 0)
-        {
-            Vector3 targetDirection = new Vector3(0f,-RotationJoystick.Horizontal, 0f);
-            
-            GameObject tappoActive = GameObject.FindGameObjectWithTag("Active");
-            if (tappoActive)
-            {
-                tappoActive.GetComponent<TappoInputHandler>().Rotate(targetDirection);
             }
         }
     }

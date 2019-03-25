@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.UI;
 
 public class Tappo
 {
@@ -20,9 +21,10 @@ public class TurnManager : MonoBehaviour {
     public GameObject[] teamTappi;
     public GameObject[] spawnPoints;
     public bool moving = true;
-    private Tappo currentTappo;
-    private Tappo[] spawnedTappi;
+    private GameObject currentTappo;
+    private List<GameObject> spawnedTappi;
     private int currentTappoIndex = 0;
+    private Camera tappoCamera;
 
     void Awake()
     {
@@ -40,21 +42,25 @@ public class TurnManager : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
+        tappoCamera = Camera.main;
         Assert.AreNotEqual(0, spawnPoints.Length);
         Assert.AreNotEqual(0, teamTappi.Length);
         int numberOfTappiForTeam = spawnPoints.Length / teamTappi.Length;
-        spawnedTappi = new Tappo[numberOfTappiForTeam*teamTappi.Length];
-        for (int i = 0; i < teamTappi.Length; i++)
+        spawnedTappi = new List<GameObject>(numberOfTappiForTeam* teamTappi.Length);
+        for (int j = 0; j < numberOfTappiForTeam; j++)
         {
-            for (int j = 0; j < numberOfTappiForTeam; j++)
+            for (int i = 0; i < teamTappi.Length; i++)
             {
-                spawnedTappi[i * numberOfTappiForTeam + j]= new Tappo(i,Instantiate(teamTappi[i], spawnPoints[i * numberOfTappiForTeam + j].transform.position, Quaternion.identity));
+                teamTappi[i].GetComponent<Player>().team=i;
+                spawnedTappi.Add(Instantiate(teamTappi[i], spawnPoints[i * numberOfTappiForTeam + j].transform.position, Quaternion.identity));
             }
         }
-        currentTappoIndex = Random.Range(0, spawnedTappi.Length);
+        currentTappoIndex = Random.Range(0, spawnedTappi.Count);
         currentTappo = spawnedTappi[currentTappoIndex];
-        SetCamera(currentTappo.tappo);
-        currentTappo.tappo.tag = "Active";
+        SetCamera(currentTappo);
+        currentTappo.tag = "Active";
+        GameObject.FindGameObjectWithTag("NumberTappiText").GetComponent<Text>().text = "Tappi rimanenti: "+spawnedTappi.Count;
+        GameObject.FindGameObjectWithTag("PlayerTurnText").GetComponent<Text>().text = "Giocatore: " + (currentTappo.GetComponent<Player>().team + 1);
     }
 	
 	// Update is called once per frame
@@ -68,15 +74,15 @@ public class TurnManager : MonoBehaviour {
 
         currentTappoIndex++;
 
-        if (currentTappoIndex >= spawnedTappi.Length)
+        if (currentTappoIndex >= spawnedTappi.Count)
         {
-            currentTappo.tappo.tag = "Untagged";
+            GameObject.FindGameObjectWithTag("PlayerTurnText").GetComponent<Text>().text="Giocatore:"+(currentTappo.GetComponent<Player>().team+1);
             currentTappoIndex = 0;
             currentTappo = spawnedTappi[currentTappoIndex];
             if (currentTappo != null)
             {
-                SetCamera(currentTappo.tappo);
-                currentTappo.tappo.tag = "Active";
+                SetCamera(currentTappo);
+                currentTappo.tag = "Active";
             }
             else
             {
@@ -88,8 +94,8 @@ public class TurnManager : MonoBehaviour {
             currentTappo = spawnedTappi[currentTappoIndex];
             if (currentTappo != null)
             {
-                SetCamera(currentTappo.tappo);
-                currentTappo.tappo.tag = "Active";
+                SetCamera(currentTappo);
+                currentTappo.tag = "Active";
             }
             else
             {
@@ -114,29 +120,36 @@ public class TurnManager : MonoBehaviour {
         if (moving)
         {
             moving = false;
-            currentTappo.tappo.tag = "Untagged";
-            currentTappo.tappo.GetComponent<Player>().FireWeapon();
+            currentTappo.tag = "Untagged";
+            currentTappo.GetComponent<Player>().FireWeapon();
         }
         else
         {
-            Destroy(go);
+            currentTappo.layer = 0;
             PassTurn();
+            Destroy(go);
         }
     }
 
 
     public void SetCamera(GameObject tappo)
     {
-        Camera.main.GetComponent<FollowTappo>().SetTappoToFollow(tappo);
+        tappoCamera.GetComponent<FollowTappo>().SetTappoToFollow(tappo);
     }
 
     public void ActivateCurrent()
     {
-        currentTappo.tappo.SetActive(true);
+        currentTappo.SetActive(true);
     }
 
     public bool IsCurrentTappo(GameObject tappo)
     {
-        return currentTappo.tappo == tappo;
+        return currentTappo == tappo;
+    }
+
+    public void Death(GameObject diedObject)
+    {
+        GameObject.FindGameObjectWithTag("EventText").GetComponent<Text>().text = "Il giocatore " + (diedObject.GetComponent<Player>().team + 1) + " ha perso un tappo!" ;
+        spawnedTappi.Remove(diedObject);
     }
 }

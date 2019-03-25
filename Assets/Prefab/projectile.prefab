@@ -128,9 +128,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 100
   speed: 15
-  speedRotation: 3
-  jumpSpeed: 1000
-  maxJumpSpeed: 1500
+  speedRotation: 1
+  jumpSpeed: 150
+  maxJumpSpeed: 800
   canJump: 0
   canMove: 1
   junpAngle: -45

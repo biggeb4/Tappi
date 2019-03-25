@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Active
   - MapCamera
+  - CanDestroy
+  - Robot
+  - FxTemporaire
+  - PlayerTurnText
+  - EventText
+  - NumberTappiText
   layers:
   - Default
   - TransparentFX
@@ -16,8 +22,8 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
+  - DeactivatePlayer
+  - Floor
   - 
   - 
   - 

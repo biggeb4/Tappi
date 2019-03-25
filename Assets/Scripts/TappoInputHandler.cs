@@ -24,6 +24,16 @@ public class TappoInputHandler : MonoBehaviour {
         }
     }
 
+    public void MoveFoward( float force)
+    {
+        if (canMove)
+        {
+            force = force > maxSpeed ? maxSpeed : force;
+            GetComponent<Rigidbody>().AddForce(transform.forward * force * speed);
+            StartCoroutine(Wait());
+        }
+    }
+
     IEnumerator Wait()
     {
         TurnManager.instance.Moving();
@@ -47,7 +57,7 @@ public class TappoInputHandler : MonoBehaviour {
     {
         if (canJump)
         {
-            Vector3 direction = Camera.main.transform.up;
+            Vector3 direction = transform.forward;
             if (Mathf.Abs(transform.eulerAngles.x) > 100)
             {
                 direction = Quaternion.AngleAxis(-junpAngle, Vector3.right) * direction;
@@ -56,10 +66,8 @@ public class TappoInputHandler : MonoBehaviour {
             {
                 direction = Quaternion.AngleAxis(junpAngle, Vector3.right) * direction;
             }
-            Debug.Log(force);
-            force = (direction * jumpSpeed).magnitude;
+            force = force+(direction * jumpSpeed).magnitude;
             force = force > maxJumpSpeed ? maxJumpSpeed : force;
-            Debug.Log(force);
             GetComponent<Rigidbody>().AddForce(direction * force);
             StartCoroutine(Wait());
         }
