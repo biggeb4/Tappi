@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Tappo
 {
@@ -22,6 +23,7 @@ public class TurnManager : MonoBehaviour {
     public GameObject[] spawnPoints;
     public bool moving = true;
     private GameObject currentTappo;
+    private GameObject pauseMenu;
     private List<GameObject> spawnedTappi;
     private int currentTappoIndex = 0;
     private Camera tappoCamera;
@@ -61,6 +63,9 @@ public class TurnManager : MonoBehaviour {
         currentTappo.tag = "Active";
         GameObject.FindGameObjectWithTag("NumberTappiText").GetComponent<Text>().text = "Tappi rimanenti: "+spawnedTappi.Count;
         GameObject.FindGameObjectWithTag("PlayerTurnText").GetComponent<Text>().text = "Giocatore: " + (currentTappo.GetComponent<Player>().team + 1);
+        GameObject.FindGameObjectWithTag("Inventory").SetActive(false);
+        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu");
+        pauseMenu.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -121,7 +126,7 @@ public class TurnManager : MonoBehaviour {
         {
             moving = false;
             currentTappo.tag = "Untagged";
-            currentTappo.GetComponent<Player>().FireWeapon();
+            currentTappo.GetComponent<Player>().ChooseWeapon();
         }
         else
         {
@@ -149,7 +154,57 @@ public class TurnManager : MonoBehaviour {
 
     public void Death(GameObject diedObject)
     {
-        GameObject.FindGameObjectWithTag("EventText").GetComponent<Text>().text = "Il giocatore " + (diedObject.GetComponent<Player>().team + 1) + " ha perso un tappo!" ;
+        int team = diedObject.GetComponent<Player>().team;
         spawnedTappi.Remove(diedObject);
+        bool companionFound = false;
+        bool Win = true;
+        int oldTeam = spawnedTappi[0].GetComponent<Player>().team;
+        foreach (GameObject tappo in spawnedTappi)
+        {
+            if(tappo.GetComponent<Player>().team== team)
+            {
+                companionFound = true;
+            }
+            if(oldTeam!= tappo.GetComponent<Player>().team)
+            {
+                Win = false;
+            }
+        }
+        if (companionFound)
+        {
+            GameObject.FindGameObjectWithTag("EventText").GetComponent<FadingText>().ChangeText("Il giocatore " + (team + 1) + " ha perso un tappo!");
+        }
+        else
+        {
+            if (!Win)
+            {
+                GameObject.FindGameObjectWithTag("EventText").GetComponent<FadingText>().ChangeText("Il giocatore " + (team + 1) + "è stato eliminato!");
+            }
+            else
+            {
+
+                GameObject.FindGameObjectWithTag("EventText").GetComponent<FadingText>().ChangeText("Il giocatore " + (oldTeam + 1) + "ha vinto!");
+                Pause();
+                GameObject.Find("Riprendi").SetActive(false);
+            }
+        }
+        GameObject.FindGameObjectWithTag("NumberTappiText").GetComponent<Text>().text = "Tappi rimanenti: " + spawnedTappi.Count;
+    }
+
+    public void Pause()
+    {
+        GetComponent<InputManager>().inputAllowed = false;
+        pauseMenu.SetActive(true);
+    }
+
+    public void UnPause()
+    {
+        GetComponent<InputManager>().inputAllowed = true;
+        pauseMenu.SetActive(false);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("MainScene", LoadSceneMode.Additive);
     }
 }

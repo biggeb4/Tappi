@@ -12,6 +12,8 @@ TagManager:
   - PlayerTurnText
   - EventText
   - NumberTappiText
+  - PauseMenu
+  - Inventory
   layers:
   - Default
   - TransparentFX

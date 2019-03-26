@@ -146,9 +146,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83c7780afc2c832438bb02df044a709d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponButton: {fileID: 1470423564584436, guid: 5078c5bc20f2bd0438ae3b24f85285b7,
+    type: 2}
   explosionPrefab: {fileID: 100006, guid: 42f257b24c959a44794a35d032e9da12, type: 2}
   team: 1
   Weapons:
   - {fileID: 114892792606668360, guid: a64d5b497b570124c9ab6d27d031d231, type: 2}
-  - {fileID: 0}
+  - {fileID: 114435112976315790, guid: 16f0eed88d7d6834889c968cfe5d660e, type: 2}
   offsetFire: {x: 0, y: 0, z: 0}

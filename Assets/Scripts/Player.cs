@@ -1,14 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
+    public GameObject weaponButton;
+    private GameObject inventory;
     public GameObject explosionPrefab;
     public int team;
     public Weapon[] Weapons;
     public Vector3 offsetFire;
     // Use this for initialization
+    void Awake()
+    {
+        inventory = GameObject.FindGameObjectWithTag("Inventory");
+    }
     void Start ()
     {
     }
@@ -16,10 +23,22 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
     }
-    
-    public void FireWeapon()
+
+    public void ChooseWeapon()
     {
-        Weapons[0].Fire(gameObject);
+        for (int i = 0; i < Weapons.Length; i++)
+        {
+            GameObject go = Instantiate(weaponButton);
+            go.GetComponent<Button>().onClick.AddListener(() => FireWeapon(i));
+            go.GetComponentInChildren<Text>().text = Weapons[i].weaponName;
+            go.transform.SetParent(inventory.transform);
+            inventory.SetActive(true);
+        }
+    }
+    public void FireWeapon(int weampnIndex)
+    {
+        inventory.SetActive(false);
+        Weapons[weampnIndex].Fire(gameObject);
     }
 
     public void Deactivate()

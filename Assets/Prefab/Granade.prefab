@@ -51,4 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634b2dedfa6d70a4ca44869d4f4ac143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: granade
   projectile: {fileID: 1891595709421858, guid: 7dfb79370adebfb43ad26750924926c8, type: 2}

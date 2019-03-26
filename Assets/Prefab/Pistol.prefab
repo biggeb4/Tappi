@@ -51,4 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da93d2b4811ec2c4492c80e200bfbc00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: pistol
   projectile: {fileID: 1891595709421858, guid: c9bbb75fe610f364daf0f0862614f701, type: 2}

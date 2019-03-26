@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour {
 
+    public string weaponName;
 	// Use this for initialization
 	void Start () {
 		
