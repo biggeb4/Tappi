@@ -109,9 +109,14 @@ public class TurnManager : MonoBehaviour {
         }
     }
 
+    public void SetInputAllowed(bool allowed)
+    {
+        GetComponent<InputManager>().inputAllowed = allowed;
+    }
+
     public void Moving()
     {
-        GetComponent<InputManager>().inputAllowed = false;
+        SetInputAllowed(false);
 
         if (!moving)
         {
@@ -121,7 +126,6 @@ public class TurnManager : MonoBehaviour {
 
     public void Moved(GameObject go)
     {
-        GetComponent<InputManager>().inputAllowed = true;
         if (moving)
         {
             moving = false;
@@ -130,9 +134,9 @@ public class TurnManager : MonoBehaviour {
         }
         else
         {
+            SetInputAllowed(true);
             currentTappo.layer = 0;
-            PassTurn();
-            Destroy(go);
+            go.GetComponent<Projectile>().Explode();
         }
     }
 
@@ -193,13 +197,13 @@ public class TurnManager : MonoBehaviour {
 
     public void Pause()
     {
-        GetComponent<InputManager>().inputAllowed = false;
+        SetInputAllowed(false);
         pauseMenu.SetActive(true);
     }
 
     public void UnPause()
     {
-        GetComponent<InputManager>().inputAllowed = true;
+        SetInputAllowed(true);
         pauseMenu.SetActive(false);
     }
 

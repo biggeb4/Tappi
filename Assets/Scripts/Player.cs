@@ -28,10 +28,12 @@ public class Player : MonoBehaviour {
     {
         for (int i = 0; i < Weapons.Length; i++)
         {
-            GameObject go = Instantiate(weaponButton);
-            go.GetComponent<Button>().onClick.AddListener(() => FireWeapon(i));
-            go.GetComponentInChildren<Text>().text = Weapons[i].weaponName;
-            go.transform.SetParent(inventory.transform);
+            GameObject go = Instantiate(weaponButton,new Vector3(i*50+285/Weapons.Length, inventory.transform.position.y,0f),Quaternion.identity,inventory.transform);
+            int wpIndex = i;
+            go.GetComponent<Button>().onClick.AddListener(() => FireWeapon(wpIndex));
+            //go.GetComponentInChildren<Text>().text = Weapons[i].weaponName;
+            go.GetComponentInChildren<Image>().sprite = Weapons[i].weaponImg;
+            //go.transform.SetParent(inventory.transform);
             inventory.SetActive(true);
         }
     }
@@ -39,6 +41,7 @@ public class Player : MonoBehaviour {
     {
         inventory.SetActive(false);
         Weapons[weampnIndex].Fire(gameObject);
+        TurnManager.instance.SetInputAllowed(true);
     }
 
     public void Deactivate()
@@ -49,8 +52,20 @@ public class Player : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Active" && !TurnManager.instance.IsCurrentTappo(gameObject))
+        if (collision.gameObject.GetComponent<Projectile>() || collision.gameObject.tag=="CanDestroy")
         {
+            LoseLife();
+        }
+    }
+
+    void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.GetComponent<Projectile>() || collision.gameObject.tag == "CanDestroy")
+        {
+            if (TurnManager.instance.IsCurrentTappo(gameObject))
+            {
+                TurnManager.instance.PassTurn();
+            }
             LoseLife();
         }
     }

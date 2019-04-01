@@ -151,6 +151,5 @@ MonoBehaviour:
   explosionPrefab: {fileID: 100006, guid: 42f257b24c959a44794a35d032e9da12, type: 2}
   team: 1
   Weapons:
-  - {fileID: 114892792606668360, guid: a64d5b497b570124c9ab6d27d031d231, type: 2}
-  - {fileID: 114435112976315790, guid: 16f0eed88d7d6834889c968cfe5d660e, type: 2}
+  - {fileID: 114614571184251384, guid: 55b95050825e5544ca79ac2192d5f7fb, type: 2}
   offsetFire: {x: 0, y: 0, z: 0}

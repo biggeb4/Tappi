@@ -56,21 +56,7 @@ public class InputManager : MonoBehaviour {
                         fire_start_time = Time.time;
                     }
 
-                    if (t.phase == TouchPhase.Moved && fire_start_time > 0)
-                    {
-                        if (t.position.x < Screen.width / 4)
-                        {
-                            Vector3 targetDirection = new Vector3(0f, 1.0f, 0f);
-                            activeTappo.GetComponent<TappoInputHandler>().Rotate(targetDirection);
-                        }
-                        else if (t.position.x > Screen.width * 3 / 4)
-                        {
-                            Vector3 targetDirection = new Vector3(0f, -1.0f, 0f);
-                            activeTappo.GetComponent<TappoInputHandler>().Rotate(targetDirection);
-                        }
-                    }
-
-                    if (t.phase == TouchPhase.Ended)
+                    if (t.phase == TouchPhase.Ended && fire_start_time>0)
                     {
                         //save ended touch 2d point
                         Vector2 secondPressPos = new Vector2(t.position.x, t.position.y);

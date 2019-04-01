@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour {
 
+    public GameObject projectile;
     public string weaponName;
-	// Use this for initialization
-	void Start () {
+    public Sprite weaponImg;
+    public bool bouncing = true;
+    public bool explosive = false;
+    public int tracking = 0;
+    public bool canJump = true;
+    public bool canMove = true;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -16,6 +24,14 @@ public class Weapon : MonoBehaviour {
 	}
     public virtual void Fire(GameObject player)
     {
-        Debug.Log("Fire");
+        player.GetComponent<Player>().Deactivate();
+        GameObject spawnedProjectile = Instantiate(projectile, player.transform.position + player.GetComponent<Player>().offsetFire, player.transform.rotation);
+        spawnedProjectile.tag = "Active";
+        spawnedProjectile.GetComponent<TappoInputHandler>().canJump = canJump;
+        spawnedProjectile.GetComponent<TappoInputHandler>().canMove = canMove;
+        spawnedProjectile.GetComponent<Projectile>().bouncing = bouncing;
+        spawnedProjectile.GetComponent<Projectile>().tracking = tracking;
+        spawnedProjectile.GetComponent<Projectile>().explosive = explosive;
+        TurnManager.instance.SetCamera(spawnedProjectile);
     }
 }

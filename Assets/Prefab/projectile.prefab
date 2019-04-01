@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 54416758355764040}
   - component: {fileID: 114982682519306406}
   - component: {fileID: 64626472723262840}
+  - component: {fileID: 114862846612981050}
   m_Layer: 0
   m_Name: projectile
   m_TagString: Untagged
@@ -115,6 +116,22 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114862846612981050
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1891595709421858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7b3ce2828d718c46a6a0f49c5beb349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bouncing: 1
+  explosive: 0
+  explosionPrefab: {fileID: 1824797997348396, guid: 4ff286cb0b963d74d852d376747c251d,
+    type: 2}
+  tracking: 0
 --- !u!114 &114982682519306406
 MonoBehaviour:
   m_ObjectHideFlags: 1
