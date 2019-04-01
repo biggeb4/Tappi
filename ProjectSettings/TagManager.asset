@@ -15,6 +15,7 @@ TagManager:
   - PauseMenu
   - Inventory
   - Wall
+  - Spawner
   layers:
   - Default
   - TransparentFX

@@ -54,7 +54,7 @@ public class TurnManager : MonoBehaviour {
             for (int i = 0; i < teamTappi.Length; i++)
             {
                 teamTappi[i].GetComponent<Player>().team=i;
-                spawnedTappi.Add(Instantiate(teamTappi[i], spawnPoints[i * numberOfTappiForTeam + j].transform.position, Quaternion.identity));
+                spawnedTappi.Add(Instantiate(teamTappi[i], spawnPoints[i * numberOfTappiForTeam + j].transform.position, spawnPoints[i * numberOfTappiForTeam + j].transform.rotation));
             }
         }
         currentTappoIndex = Random.Range(0, spawnedTappi.Count);
@@ -75,6 +75,8 @@ public class TurnManager : MonoBehaviour {
 
     public void PassTurn()
     {
+        GetComponentInChildren<WaponSpawner>().SpawnWeapon();
+
         moving = true;
 
         currentTappoIndex++;
@@ -158,6 +160,10 @@ public class TurnManager : MonoBehaviour {
 
     public void Death(GameObject diedObject)
     {
+        if (IsCurrentTappo(gameObject))
+        {
+            PassTurn();
+        }
         int team = diedObject.GetComponent<Player>().team;
         spawnedTappi.Remove(diedObject);
         bool companionFound = false;

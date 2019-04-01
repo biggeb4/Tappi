@@ -540,7 +540,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2000260700}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3026,6 +3027,11 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 382430480}
   m_GameObject: {fileID: 1883095560}
   m_CullTransparentMesh: 0
+--- !u!4 &2000260700 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4634970344589276, guid: dfa414b1a33c0f04888facf1be83381e,
+    type: 2}
+  m_PrefabInternal: {fileID: 2020841619}
 --- !u!1 &2016296366
 GameObject:
   m_ObjectHideFlags: 0
@@ -3059,6 +3065,75 @@ RectTransform:
   m_AnchoredPosition: {x: -134.9, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &2020841619
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 140319665}
+    m_Modifications:
+    - target: {fileID: 114590994783990882, guid: dfa414b1a33c0f04888facf1be83381e,
+        type: 2}
+      propertyPath: WeaposToSpawn.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634970344589276, guid: dfa414b1a33c0f04888facf1be83381e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634970344589276, guid: dfa414b1a33c0f04888facf1be83381e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 3.390152
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634970344589276, guid: dfa414b1a33c0f04888facf1be83381e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634970344589276, guid: dfa414b1a33c0f04888facf1be83381e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634970344589276, guid: dfa414b1a33c0f04888facf1be83381e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634970344589276, guid: dfa414b1a33c0f04888facf1be83381e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634970344589276, guid: dfa414b1a33c0f04888facf1be83381e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634970344589276, guid: dfa414b1a33c0f04888facf1be83381e, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1699314703706152, guid: dfa414b1a33c0f04888facf1be83381e, type: 2}
+      propertyPath: m_Name
+      value: WeaponSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634970344589276, guid: dfa414b1a33c0f04888facf1be83381e, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 31.728117
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634970344589276, guid: dfa414b1a33c0f04888facf1be83381e, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 22.234652
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590994783990882, guid: dfa414b1a33c0f04888facf1be83381e,
+        type: 2}
+      propertyPath: WeaposToSpawn.Array.data[0]
+      value: 
+      objectReference: {fileID: 1891595709421858, guid: 718926c8934d91e4ba27eefec1563e6e,
+        type: 2}
+    - target: {fileID: 1699314703706152, guid: dfa414b1a33c0f04888facf1be83381e, type: 2}
+      propertyPath: m_TagString
+      value: Spawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dfa414b1a33c0f04888facf1be83381e, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &2068209669
 GameObject:
   m_ObjectHideFlags: 0
