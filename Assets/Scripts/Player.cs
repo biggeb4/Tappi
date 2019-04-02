@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
     public int team;
     public List<Weapon> Weapons;
     public Vector3 offsetFire;
-    public float maxFall =-2;
+    public float maxFall =-10;
     // Use this for initialization
     void Awake()
     {
@@ -93,6 +93,10 @@ public class Player : MonoBehaviour {
     {
         Instantiate(explosionPrefab, gameObject.transform.position, Quaternion.identity);
         TurnManager.instance.Death(gameObject);
+        foreach (Transform child in transform)
+        {
+            child.parent = null;
+        }
         Destroy(gameObject);
     }
 }

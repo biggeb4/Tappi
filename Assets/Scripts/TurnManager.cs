@@ -109,6 +109,7 @@ public class TurnManager : MonoBehaviour {
                 PassTurn();
             }
         }
+        SetInputAllowed(true);
     }
 
     public void SetInputAllowed(bool allowed)
@@ -160,7 +161,7 @@ public class TurnManager : MonoBehaviour {
 
     public void Death(GameObject diedObject)
     {
-        if (IsCurrentTappo(gameObject))
+        if (diedObject.tag=="Active")
         {
             PassTurn();
         }
@@ -215,6 +216,6 @@ public class TurnManager : MonoBehaviour {
 
     public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene("MainScene", LoadSceneMode.Additive);
+        SceneManager.LoadScene("Menu");
     }
 }
