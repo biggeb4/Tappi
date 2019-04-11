@@ -42,7 +42,6 @@ public class Projectile : MonoBehaviour {
         {
             if (explosive)
             {
-                Debug.Log("explosive");
                 GameObject exploasion = Instantiate(explosionPrefab, transform.position, transform.rotation);
                 Destroy(exploasion, explosionTime);
                 StartCoroutine(Wait());
@@ -58,7 +57,6 @@ public class Projectile : MonoBehaviour {
     {
         yield return new WaitForSeconds(explosionTime);
         Destroy(gameObject, 0.2f);
-        Debug.Log("passing for projectile");
         TurnManager.instance.PassTurn();
     }
 }

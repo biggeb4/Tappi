@@ -43,7 +43,6 @@ public class Player : MonoBehaviour {
             go.GetComponent<Button>().onClick.AddListener(() => FireWeapon(wpIndex));
             //go.GetComponentInChildren<Text>().text = Weapons[i].weaponName;
             go.GetComponentInChildren<Image>().sprite = Weapons[i].weaponImg;
-            Debug.Log(Weapons[i].weaponName);
             //go.transform.SetParent(inventory.transform);
             inventory.SetActive(true);
         }
@@ -84,7 +83,6 @@ public class Player : MonoBehaviour {
         GameObject hitted = collision.gameObject;
         if (hitted.GetComponent<Projectile>() || hitted.tag == "CanDestroy")
         {
-            Debug.Log("lose life");
             LoseLife();
         }
     }

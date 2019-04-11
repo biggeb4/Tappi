@@ -60,7 +60,6 @@ public class TappoInputHandler : MonoBehaviour {
         {
             force = force*jumpSpeed;
             force = force > maxJumpSpeed ? maxJumpSpeed : force;
-            Debug.Log(force);
             GetComponent<Rigidbody>().AddForce(transform.up * force* JumpUpComponent);
             GetComponent<Rigidbody>().AddForce(transform.forward * force* JumpForwardComponent);
             StartCoroutine(Wait());
