@@ -161,7 +161,7 @@ public class TurnManager : MonoBehaviour {
 
     public void Death(GameObject diedObject)
     {
-        if (diedObject.tag=="Active")
+        if (diedObject.tag=="Active" && moving)
         {
             PassTurn();
         }

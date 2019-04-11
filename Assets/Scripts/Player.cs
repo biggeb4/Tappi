@@ -84,7 +84,7 @@ public class Player : MonoBehaviour {
         GameObject hitted = collision.gameObject;
         if (hitted.GetComponent<Projectile>() || hitted.tag == "CanDestroy")
         {
-            
+            Debug.Log("lose life");
             LoseLife();
         }
     }

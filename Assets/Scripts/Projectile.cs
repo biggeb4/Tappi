@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour {
     public GameObject explosionPrefab;
     public float explosionTime = 1;
     public int tracking=0;
+    public float maxFall = -10;
 
     // Use this for initialization
     void Start () {
@@ -17,8 +18,11 @@ public class Projectile : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (transform.position.y < maxFall)
+        {
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -54,6 +58,7 @@ public class Projectile : MonoBehaviour {
     {
         yield return new WaitForSeconds(explosionTime);
         Destroy(gameObject, 0.2f);
+        Debug.Log("passing for projectile");
         TurnManager.instance.PassTurn();
     }
 }
