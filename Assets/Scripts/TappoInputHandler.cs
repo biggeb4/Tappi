@@ -11,7 +11,8 @@ public class TappoInputHandler : MonoBehaviour {
     public float maxJumpSpeed = 200;
     public bool canJump = true;
     public bool canMove = true;
-    public float junpAngle = -45;
+    public float JumpUpComponent = 0.75f;
+    public float JumpForwardComponent = 0.25f;
 
 
     public void Move(Vector3 direction,float force)
@@ -57,18 +58,11 @@ public class TappoInputHandler : MonoBehaviour {
     {
         if (canJump)
         {
-            Vector3 direction = transform.forward;
-            if (Mathf.Abs(transform.eulerAngles.x) > 100)
-            {
-                direction = Quaternion.AngleAxis(-junpAngle, Vector3.right) * direction;
-            }
-            else
-            {
-                direction = Quaternion.AngleAxis(junpAngle, Vector3.right) * direction;
-            }
-            force = force+(direction * jumpSpeed).magnitude;
+            force = force*jumpSpeed;
             force = force > maxJumpSpeed ? maxJumpSpeed : force;
-            GetComponent<Rigidbody>().AddForce(direction * force);
+            Debug.Log(force);
+            GetComponent<Rigidbody>().AddForce(transform.up * force* JumpUpComponent);
+            GetComponent<Rigidbody>().AddForce(transform.forward * force* JumpForwardComponent);
             StartCoroutine(Wait());
         }
     }

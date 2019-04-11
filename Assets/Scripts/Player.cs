@@ -38,7 +38,7 @@ public class Player : MonoBehaviour {
         }
         for (int i = 0; i < Weapons.Count; i++)
         {
-            GameObject go = Instantiate(weaponButton,new Vector3((i+1)* (520 / (Weapons.Count + 1)), inventory.transform.position.y,0f),Quaternion.identity,inventory.transform);
+            GameObject go = Instantiate(weaponButton,new Vector3((i+1)* ((inventory.transform.position.x- inventory.transform.position.x/4) / (Weapons.Count + 1)), inventory.transform.position.y/2,0f),Quaternion.identity,inventory.transform);
             int wpIndex = i;
             go.GetComponent<Button>().onClick.AddListener(() => FireWeapon(wpIndex));
             //go.GetComponentInChildren<Text>().text = Weapons[i].weaponName;
