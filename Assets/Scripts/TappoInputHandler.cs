@@ -29,8 +29,9 @@ public class TappoInputHandler : MonoBehaviour {
     {
         if (canMove)
         {
+            force *= speed;
             force = force > maxSpeed ? maxSpeed : force;
-            GetComponent<Rigidbody>().AddForce(transform.forward * force * speed);
+            GetComponent<Rigidbody>().AddForce(transform.forward * force);
             StartCoroutine(Wait());
         }
     }
@@ -42,9 +43,9 @@ public class TappoInputHandler : MonoBehaviour {
         {
             yield return null;
         }
-        if (Mathf.Abs(transform.eulerAngles.x) > 100)
+        if (Mathf.Abs(transform.eulerAngles.x) > 90 || Mathf.Abs(transform.eulerAngles.z) > 90)
         {
-            transform.eulerAngles = new Vector3(0,transform.eulerAngles.y,transform.eulerAngles.z);
+            transform.eulerAngles = new Vector3(0,transform.eulerAngles.y,0);
         }
         TurnManager.instance.Moved(gameObject);
     }

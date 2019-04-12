@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2616,11 +2616,47 @@ PrefabInstance:
     - target: {fileID: 114590994783990882, guid: dfa414b1a33c0f04888facf1be83381e,
         type: 3}
       propertyPath: WeaposToSpawn.Array.size
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114590994783990882, guid: dfa414b1a33c0f04888facf1be83381e,
         type: 3}
       propertyPath: WeaposToSpawn.Array.data[0]
+      value: 
+      objectReference: {fileID: 1891595709421858, guid: 25a7b07c0bf51a54e841f8f6293b7607,
+        type: 3}
+    - target: {fileID: 114590994783990882, guid: dfa414b1a33c0f04888facf1be83381e,
+        type: 3}
+      propertyPath: WeaposToSpawn.Array.data[1]
+      value: 
+      objectReference: {fileID: 1891595709421858, guid: 50ea7149c35f078438b82e173f30d7cb,
+        type: 3}
+    - target: {fileID: 114590994783990882, guid: dfa414b1a33c0f04888facf1be83381e,
+        type: 3}
+      propertyPath: WeaposToSpawn.Array.data[2]
+      value: 
+      objectReference: {fileID: 1891595709421858, guid: 718926c8934d91e4ba27eefec1563e6e,
+        type: 3}
+    - target: {fileID: 114590994783990882, guid: dfa414b1a33c0f04888facf1be83381e,
+        type: 3}
+      propertyPath: WeaposToSpawn.Array.data[3]
+      value: 
+      objectReference: {fileID: 1891595709421858, guid: b647118249f43444cb3d2d6aaf5b5262,
+        type: 3}
+    - target: {fileID: 114590994783990882, guid: dfa414b1a33c0f04888facf1be83381e,
+        type: 3}
+      propertyPath: WeaposToSpawn.Array.data[4]
+      value: 
+      objectReference: {fileID: 1891595709421858, guid: 69533e36d91dc994292980c3cbb9769e,
+        type: 3}
+    - target: {fileID: 114590994783990882, guid: dfa414b1a33c0f04888facf1be83381e,
+        type: 3}
+      propertyPath: WeaposToSpawn.Array.data[5]
+      value: 
+      objectReference: {fileID: 1891595709421858, guid: 41cb929d33709904d8cdfd202648e9ba,
+        type: 3}
+    - target: {fileID: 114590994783990882, guid: dfa414b1a33c0f04888facf1be83381e,
+        type: 3}
+      propertyPath: WeaposToSpawn.Array.data[6]
       value: 
       objectReference: {fileID: 1891595709421858, guid: 718926c8934d91e4ba27eefec1563e6e,
         type: 3}

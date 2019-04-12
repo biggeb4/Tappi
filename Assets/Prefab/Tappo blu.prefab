@@ -109,8 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e56acef76468b469472d187df481d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 100
-  speed: 15
+  maxSpeed: 150
+  speed: 0.15
   speedRotation: 1
   jumpSpeed: 0.4
   maxJumpSpeed: 800
@@ -149,6 +149,8 @@ MonoBehaviour:
   explosionPrefab: {fileID: 100006, guid: 42f257b24c959a44794a35d032e9da12, type: 3}
   team: 0
   Weapons:
+  - {fileID: 114614571184251384, guid: 327a5d7cf4ec05b4c9cbf280017a4feb, type: 3}
   - {fileID: 114614571184251384, guid: 55b95050825e5544ca79ac2192d5f7fb, type: 3}
   offsetFire: {x: 0, y: 0, z: 0}
   maxFall: -10
+  pusingWall: 10

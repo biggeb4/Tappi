@@ -83,9 +83,9 @@ public class TurnManager : MonoBehaviour {
 
         if (currentTappoIndex >= spawnedTappi.Count)
         {
-            GameObject.FindGameObjectWithTag("PlayerTurnText").GetComponent<Text>().text="Giocatore:"+(currentTappo.GetComponent<Player>().team+1);
             currentTappoIndex = 0;
             currentTappo = spawnedTappi[currentTappoIndex];
+            GameObject.FindGameObjectWithTag("PlayerTurnText").GetComponent<Text>().text="Giocatore:"+(currentTappo.GetComponent<Player>().team+1);
             if (currentTappo != null)
             {
                 SetCamera(currentTappo);

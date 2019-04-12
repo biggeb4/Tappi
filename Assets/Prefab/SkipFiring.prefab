@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 33005601615832324}
   - component: {fileID: 23015881767114202}
   - component: {fileID: 54416758355764040}
-  - component: {fileID: 114982682519306406}
   - component: {fileID: 64626472723262840}
-  - component: {fileID: 114862846612981050}
+  - component: {fileID: 114614571184251384}
   m_Layer: 0
-  m_Name: projectile
+  m_Name: SkipFiring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ab11d043c8311a1409d746e88e8b0768, type: 2}
+  - {fileID: 2100000, guid: cb089ac2f9852474181e5ee1f75c3153, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,27 +96,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114982682519306406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1891595709421858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37e56acef76468b469472d187df481d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 150
-  speed: 0.15
-  speedRotation: 1
-  jumpSpeed: 0.4
-  maxJumpSpeed: 800
-  canJump: 0
-  canMove: 1
-  JumpUpComponent: 0.75
-  JumpForwardComponent: 0.25
 --- !u!64 &64626472723262840
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -125,14 +103,14 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891595709421858}
-  m_Material: {fileID: 13400000, guid: b51bc002ab184ea419b2bcb9bd112ee1, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114862846612981050
+--- !u!114 &114614571184251384
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,13 +119,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1891595709421858}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7b3ce2828d718c46a6a0f49c5beb349, type: 3}
+  m_Script: {fileID: 11500000, guid: a8a45f7fa74593a4b940a3a9b7567ff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bouncing: 1
+  projectile: {fileID: 1891595709421858, guid: c9bbb75fe610f364daf0f0862614f701, type: 3}
+  weaponName: Skip
+  weaponImg: {fileID: 21300000, guid: 67b7056f11d271f4fac5c5f0ffbc3461, type: 3}
+  bouncing: 0
   explosive: 0
-  explosionPrefab: {fileID: 1824797997348396, guid: 4ff286cb0b963d74d852d376747c251d,
-    type: 3}
-  explosionTime: 1
   tracking: 0
-  maxFall: -10
+  canJump: 0
+  canMove: 0

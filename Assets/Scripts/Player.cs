@@ -12,6 +12,7 @@ public class Player : MonoBehaviour {
     public List<Weapon> Weapons;
     public Vector3 offsetFire;
     public float maxFall =-10;
+    public float pusingWall = 10;
     // Use this for initialization
     void Awake()
     {
@@ -41,9 +42,7 @@ public class Player : MonoBehaviour {
             GameObject go = Instantiate(weaponButton,new Vector3((i+1)* ((inventory.transform.position.x- inventory.transform.position.x/4) / (Weapons.Count + 1)), inventory.transform.position.y/2,0f),Quaternion.identity,inventory.transform);
             int wpIndex = i;
             go.GetComponent<Button>().onClick.AddListener(() => FireWeapon(wpIndex));
-            //go.GetComponentInChildren<Text>().text = Weapons[i].weaponName;
             go.GetComponentInChildren<Image>().sprite = Weapons[i].weaponImg;
-            //go.transform.SetParent(inventory.transform);
             inventory.SetActive(true);
         }
     }
@@ -75,6 +74,21 @@ public class Player : MonoBehaviour {
                 hitted.SetActive(false);
             }
 
+        }
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+        GameObject hitted = collision.gameObject;
+        if (hitted.tag == "Wall")
+        {
+            // Calculate Angle Between the collision point and the player
+            Vector3 dir = collision.contacts[0].point - transform.position;
+            // We then get the opposite (-Vector3) and normalize it
+            dir = -dir.normalized;
+            // And finally we add force in the direction of dir and multiply it by force. 
+            // This will push back the player
+            GetComponent<Rigidbody>().AddForce(dir * pusingWall);
         }
     }
 

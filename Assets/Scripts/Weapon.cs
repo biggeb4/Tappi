@@ -24,14 +24,21 @@ public class Weapon : MonoBehaviour {
 	}
     public virtual void Fire(GameObject player)
     {
-        player.GetComponent<Player>().Deactivate();
-        GameObject spawnedProjectile = Instantiate(projectile, player.transform.position + player.GetComponent<Player>().offsetFire, player.transform.rotation);
-        spawnedProjectile.tag = "Active";
-        spawnedProjectile.GetComponent<TappoInputHandler>().canJump = canJump;
-        spawnedProjectile.GetComponent<TappoInputHandler>().canMove = canMove;
-        spawnedProjectile.GetComponent<Projectile>().bouncing = bouncing;
-        spawnedProjectile.GetComponent<Projectile>().tracking = tracking;
-        spawnedProjectile.GetComponent<Projectile>().explosive = explosive;
-        TurnManager.instance.SetCamera(spawnedProjectile);
+        if (weaponName != "Skip")
+        {
+            player.GetComponent<Player>().Deactivate();
+            GameObject spawnedProjectile = Instantiate(projectile, player.transform.position + player.GetComponent<Player>().offsetFire, player.transform.rotation);
+            spawnedProjectile.tag = "Active";
+            spawnedProjectile.GetComponent<TappoInputHandler>().canJump = canJump;
+            spawnedProjectile.GetComponent<TappoInputHandler>().canMove = canMove;
+            spawnedProjectile.GetComponent<Projectile>().bouncing = bouncing;
+            spawnedProjectile.GetComponent<Projectile>().tracking = tracking;
+            spawnedProjectile.GetComponent<Projectile>().explosive = explosive;
+            TurnManager.instance.SetCamera(spawnedProjectile);
+        }
+        else
+        {
+            TurnManager.instance.PassTurn();
+        }
     }
 }
