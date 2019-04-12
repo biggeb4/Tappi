@@ -68,12 +68,11 @@ public class Player : MonoBehaviour {
         }
         else
         {
-            if (hitted.GetComponent<Weapon>())
+            if (hitted.GetComponent<Weapon>() && !Weapons.Contains(hitted.GetComponent<Weapon>()))
             {
                 Weapons.Add(hitted.GetComponent<Weapon>());
                 hitted.SetActive(false);
             }
-
         }
     }
 
@@ -88,7 +87,12 @@ public class Player : MonoBehaviour {
             dir = -dir.normalized;
             // And finally we add force in the direction of dir and multiply it by force. 
             // This will push back the player
-            GetComponent<Rigidbody>().AddForce(dir * pusingWall);
+
+            if (dir.z < 0.2f && dir.z > -0.2f)
+            {
+                Debug.Log(dir);
+                GetComponent<Rigidbody>().AddForce(dir * pusingWall);
+            }
         }
     }
 

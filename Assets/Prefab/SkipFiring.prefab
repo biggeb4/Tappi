@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 1891595709421858, guid: c9bbb75fe610f364daf0f0862614f701, type: 3}
   weaponName: Skip
-  weaponImg: {fileID: 21300000, guid: 67b7056f11d271f4fac5c5f0ffbc3461, type: 3}
+  weaponImg: {fileID: 21300000, guid: 08d359bea2c2fdd44a82b743eb82c355, type: 3}
   bouncing: 0
   explosive: 0
   tracking: 0
