@@ -90,6 +90,10 @@ public class TurnManager : MonoBehaviour {
             {
                 SetCamera(currentTappo);
                 currentTappo.tag = "Active";
+                if (Mathf.Abs(currentTappo.transform.eulerAngles.x) > 90 || Mathf.Abs(currentTappo.transform.eulerAngles.z) > 90)
+                {
+                    currentTappo.transform.eulerAngles = new Vector3(0, currentTappo.transform.eulerAngles.y, 0);
+                }
             }
             else
             {
@@ -103,6 +107,10 @@ public class TurnManager : MonoBehaviour {
             {
                 SetCamera(currentTappo);
                 currentTappo.tag = "Active";
+                if (Mathf.Abs(currentTappo.transform.eulerAngles.x) > 90 || Mathf.Abs(currentTappo.transform.eulerAngles.z) > 90)
+                {
+                    currentTappo.transform.eulerAngles = new Vector3(0, currentTappo.transform.eulerAngles.y, 0);
+                }
             }
             else
             {

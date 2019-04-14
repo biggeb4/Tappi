@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
     public GameObject explosionPrefab;
     public int team;
     public List<Weapon> Weapons;
+    private List<string> WeaponsNames = new List<string>();
     public Vector3 offsetFire;
     public float maxFall =-10;
     public float pusingWall = 10;
@@ -20,6 +21,10 @@ public class Player : MonoBehaviour {
     }
     void Start ()
     {
+        for(int i =0; i<Weapons.Count; i++)
+        {
+            WeaponsNames.Add(Weapons[i].weaponName);
+        }
     }
 	
 	// Update is called once per frame
@@ -39,12 +44,12 @@ public class Player : MonoBehaviour {
         }
         for (int i = 0; i < Weapons.Count; i++)
         {
-            GameObject go = Instantiate(weaponButton,new Vector3((i+1)* ((inventory.transform.position.x- inventory.transform.position.x/4) / (Weapons.Count + 1)), inventory.transform.position.y/2,0f),Quaternion.identity,inventory.transform);
+            GameObject go = Instantiate(weaponButton,new Vector3(inventory.transform.position.x-((Weapons.Count/2)*50) + i*50, inventory.transform.position.y,0f),Quaternion.identity,inventory.transform);
             int wpIndex = i;
             go.GetComponent<Button>().onClick.AddListener(() => FireWeapon(wpIndex));
             go.GetComponentInChildren<Image>().sprite = Weapons[i].weaponImg;
-            inventory.SetActive(true);
         }
+        inventory.SetActive(true);
     }
     public void FireWeapon(int weampnIndex)
     {
@@ -68,9 +73,10 @@ public class Player : MonoBehaviour {
         }
         else
         {
-            if (hitted.GetComponent<Weapon>() && !Weapons.Contains(hitted.GetComponent<Weapon>()))
+            if (hitted.GetComponent<Weapon>() && !WeaponsNames.Contains(hitted.GetComponent<Weapon>().weaponName))
             {
                 Weapons.Add(hitted.GetComponent<Weapon>());
+                WeaponsNames.Add(hitted.GetComponent<Weapon>().weaponName);
                 hitted.SetActive(false);
             }
         }
@@ -88,9 +94,9 @@ public class Player : MonoBehaviour {
             // And finally we add force in the direction of dir and multiply it by force. 
             // This will push back the player
 
-            if (dir.z < 0.2f && dir.z > -0.2f)
+            float pointingUp = Vector3.Dot(dir.normalized, Vector3.up);
+            if (pointingUp<0)
             {
-                Debug.Log(dir);
                 GetComponent<Rigidbody>().AddForce(dir * pusingWall);
             }
         }

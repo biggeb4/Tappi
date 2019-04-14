@@ -153,4 +153,4 @@ MonoBehaviour:
   - {fileID: 114614571184251384, guid: 55b95050825e5544ca79ac2192d5f7fb, type: 3}
   offsetFire: {x: 0, y: 0, z: 0}
   maxFall: -10
-  pusingWall: 10
+  pusingWall: 25

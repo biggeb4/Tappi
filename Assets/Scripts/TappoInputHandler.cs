@@ -45,7 +45,7 @@ public class TappoInputHandler : MonoBehaviour {
         }
         if (Mathf.Abs(transform.eulerAngles.x) > 90 || Mathf.Abs(transform.eulerAngles.z) > 90)
         {
-            transform.eulerAngles = new Vector3(0,transform.eulerAngles.y,0);
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         }
         TurnManager.instance.Moved(gameObject);
     }
